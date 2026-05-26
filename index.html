@@ -579,4 +579,126 @@
         <div class="footer-content">
             <div class="footer-column">
                 <h4>Contact Info</h4>
-                <p>📩 <a href="mailto:mr.nayaka.555@g
+                <p>📩 <a href="mailto:mr.nayaka.555@gmail.com">mr.nayaka.555@gmail.com</a></p>
+                <p>📞 <a href="tel:+919380458173">+91 9380458173</a></p>
+            </div>
+            <div class="footer-column">
+                <h4>Social Network</h4>
+                <p style="margin-top: 10px;">
+                    <a class="social-link" href="https://www.instagram.com/mr._.nayaka._?igsh=N2l5aTlpd3RzMHMx" target="_blank">
+                        📷 Instagram
+                    </a>
+                </p>
+            </div>
+            <div class="footer-column">
+                <h4>Location Focus</h4>
+                <p>Mysuru, Karnataka<br>India</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Kishan Nayaka. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* --- 1. Dynamic 3D Photo Hover System --- */
+        const frame = document.getElementById('dynamicFrame');
+        const container = document.querySelector('.profile-container');
+
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left - (rect.width / 2);
+            const y = e.clientY - rect.top - (rect.height / 2);
+            
+            // Intensified 3D perspective depth tracking calculations
+            const rotateX = -(y / 8).toFixed(2);
+            const rotateY = (x / 8).toFixed(2);
+
+            frame.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            frame.style.transform = 'rotateX(0deg) rotateY(0deg)';
+        });
+
+        /* --- 2. Ambient Math-Driven Interactive Background Simulation --- */
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const particleCount = 45;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Instantiate particle physics records
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3 + 1,
+                speedX: Math.random() * 0.6 - 0.3,
+                speedY: Math.random() * 0.6 - 0.3
+            });
+        }
+
+        // Mouse positional tracker
+        let mouse = { x: null, y: null };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(26, 42, 68, 0.15)';
+            ctx.strokeStyle = 'rgba(26, 42, 68, 0.04)';
+
+            particles.forEach((p, idx) => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                // Screen Boundary Wrap Controls
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+
+                // Interactive mouse repulsion distortion math logic
+                if (mouse.x && mouse.y) {
+                    let dx = mouse.x - p.x;
+                    let dy = mouse.y - p.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        p.x -= dx * 0.02;
+                        p.y -= dy * 0.02;
+                    }
+                }
+
+                // Render micro nodes
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Build structural lattice wires dynamically based on distance vectors
+                for (let j = idx + 1; j < particles.length; j++) {
+                    let p2 = particles[j];
+                    let distance = Math.sqrt((p.x - p2.x)**2 + (p.y - p2.y)**2);
+                    if (distance < 150) {
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.p2y || p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
