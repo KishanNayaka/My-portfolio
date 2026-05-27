@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kishan Nayaka | Web Developer Portfolio</title>
     <style>
-        /* --- Design Tokens & Reset --- */
+        /* --- Design Tokens & Global Reset --- */
         :root {
-            --primary-bg: #111b2d;
+            --primary-bg: #0b132b;
             --secondary-bg: #f4f7f6;
             --accent-blue: #00f2fe;
-            --accent-glow: rgba(0, 242, 254, 0.4);
-            --gold-glow: rgba(212, 175, 55, 0.4);
-            --text-dark: #2c3e50;
+            --accent-glow: rgba(0, 242, 254, 0.5);
+            --gold-glow: rgba(212, 175, 55, 0.5);
+            --text-dark: #1c2541;
             --text-light: #ffffff;
-            --card-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            --card-shadow: 0 20px 40px rgba(0,0,0,0.08);
             --radius: 16px;
         }
 
@@ -33,7 +33,7 @@
             position: relative;
         }
 
-        /* --- Ambient 3D Interactive Background Canvas --- */
+        /* --- Spicy 3D Motion Background Canvas & Floating Elements --- */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -42,28 +42,52 @@
             height: 100vh;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
-        /* Ambient Floating Shapes in Background */
-        .ambient-shape {
+        /* Floating 3D Shapes */
+        .spicy-mesh {
             position: absolute;
-            background: linear-gradient(45deg, rgba(0, 242, 254, 0.05), rgba(212, 175, 55, 0.05));
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            filter: blur(40px);
-            z-index: 1;
-            animation: morphingFloating 12s infinite ease-in-out alternate;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(212, 175, 55, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.15);
             pointer-events: none;
-        }
-        .shape-1 { width: 400px; height: 400px; top: -10%; right: -5%; animation-duration: 14s; }
-        .shape-2 { width: 300px; height: 300px; top: 40%; left: -10%; animation-duration: 18s; }
-
-        @keyframes morphingFloating {
-            0% { transform: translateY(0px) rotate(0deg); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
-            100% { transform: translateY(30px) rotate(45deg); border-radius: 50% 50% 30% 70% / 50% 60% 40% 60%; }
+            z-index: 1;
+            animation: floatingEngine 15s infinite linear;
         }
 
-        /* Layout wrappers to lift content over background components */
+        .mesh-cube {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 5%;
+            border-radius: 24%;
+            animation-duration: 18s;
+        }
+
+        .mesh-sphere {
+            width: 120px;
+            height: 120px;
+            bottom: 15%;
+            right: 8%;
+            border-radius: 50%;
+            animation-duration: 25s;
+        }
+
+        .mesh-pyramid {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            left: 80%;
+            transform: rotate(45deg);
+            animation-duration: 12s;
+        }
+
+        @keyframes floatingEngine {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); }
+            50% { transform: translateY(-40px) rotate(180deg) scale(1.1); filter: blur(2px); }
+            100% { transform: translateY(0px) rotate(360deg) scale(1); }
+        }
+
         header, section, footer {
             position: relative;
             z-index: 2;
@@ -78,10 +102,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 8%;
-            background: rgba(17, 27, 45, 0.9);
+            background: rgba(11, 19, 43, 0.9);
             backdrop-filter: blur(12px);
             z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
         }
 
         .logo {
@@ -102,7 +126,7 @@
             margin-left: 30px;
             font-size: 1rem;
             font-weight: 500;
-            transition: opacity 0.3s, transform 0.3s;
+            transition: all 0.3s ease;
             opacity: 0.8;
             display: inline-block;
         }
@@ -113,61 +137,60 @@
             text-shadow: 0 0 8px var(--accent-blue);
         }
 
-        /* --- Hero Section (Deep Blue Banner) --- */
+        /* --- Hero Section --- */
         .hero {
-            background: linear-gradient(135deg, #111b2d 0%, #1a2a44 100%);
-            min-height: 85vh;
+            background: linear-gradient(135deg, #0b132b 0%, #1c2541 100%);
+            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 120px 10% 60px 10%;
+            padding: 140px 10% 60px 10%;
             color: var(--text-light);
-            position: relative;
             overflow: hidden;
         }
 
         .hero-text {
-            max-width: 50%;
-            z-index: 2;
-            animation: fadeInUp 1s ease-out;
+            max-width: 55%;
+            z-index: 5;
+            animation: fadeInUp 1s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-text h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 10px;
-            font-weight: 700;
+            font-size: 3.8rem;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            font-weight: 800;
         }
 
         .hero-text p {
-            font-size: 1.5rem;
-            opacity: 0.8;
+            font-size: 1.6rem;
+            opacity: 0.85;
             font-weight: 300;
             letter-spacing: 0.5px;
         }
 
-        /* High-Intensity 3D Profile Setup */
+        /* Responsive 3D Profile Frame Layout */
         .profile-container {
             position: relative;
             perspective: 1500px;
-            z-index: 2;
+            z-index: 5;
         }
 
         .profile-frame {
-            width: 340px;
-            height: 340px;
+            width: 350px;
+            height: 350px;
             border-radius: 50%;
             overflow: hidden;
-            border: 4px solid #ffffff;
-            box-shadow: 0 0 35px var(--accent-glow), var(--card-shadow);
+            border: 5px solid #ffffff;
+            box-shadow: 0 0 50px var(--accent-glow), var(--card-shadow);
             transform-style: preserve-3d;
-            transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1);
-            background: #233554;
+            transition: transform 0.15s ease-out;
+            background: #1c2541;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -177,21 +200,20 @@
             width: 100%;
             height: auto;
             object-fit: cover;
-            transform: translateZ(50px) scale(1.08);
-            pointer-events: none;
+            transform: translateZ(60px) scale(1.1);
         }
 
-        /* --- Content Sections --- */
+        /* --- Section Titles --- */
         .section {
-            padding: 100px 10%;
+            padding: 110px 10%;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 50px;
             position: relative;
-            color: #1a2a44;
-            font-weight: 700;
+            color: #1c2541;
+            font-weight: 800;
             display: inline-block;
         }
 
@@ -200,10 +222,10 @@
             position: absolute;
             bottom: -8px;
             left: 0;
-            width: 50%;
-            height: 4px;
+            width: 60%;
+            height: 5px;
             background: #d4af37;
-            border-radius: 2px;
+            border-radius: 3px;
         }
 
         /* --- Skills Stack --- */
@@ -215,7 +237,7 @@
 
         .skill-card {
             background: white;
-            padding: 30px 20px;
+            padding: 35px 20px;
             border-radius: var(--radius);
             text-align: center;
             box-shadow: var(--card-shadow);
@@ -224,27 +246,27 @@
         }
 
         .skill-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            transform: translateY(-12px) scale(1.06);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
         }
 
         .skill-card svg {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             margin-bottom: 15px;
             transition: transform 0.4s ease;
         }
 
         .skill-card:hover svg {
-            transform: rotate(10deg) scale(1.1);
+            transform: rotate(15deg) scale(1.15);
         }
 
-        /* --- Projects Grid with Real 3D Tilt Mechanics --- */
+        /* --- Projects Section with Premium Interactive Layers --- */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 35px;
-            perspective: 1000px; /* Activates 3D depth field space */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            perspective: 1200px;
         }
 
         .project-card {
@@ -252,66 +274,74 @@
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--card-shadow);
-            transform-style: preserve-3d; /* Allows nested elements to look 3D popped */
-            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.03);
+            transform-style: preserve-3d;
+            transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.02);
             position: relative;
+            z-index: 10;
         }
 
         .project-card:hover {
-            box-shadow: 0 30px 50px rgba(0, 242, 254, 0.15), var(--card-shadow);
+            box-shadow: 0 35px 60px rgba(0, 242, 254, 0.2), var(--card-shadow);
         }
 
         .project-img-placeholder {
-            height: 200px;
+            height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
+            font-size: 4rem;
             background: linear-gradient(135deg, #e0e6ed 0%, #cbd5e1 100%);
-            transform: translateZ(20px); /* Pops the emoji outwards in 3D */
+            transform: translateZ(30px);
             transition: transform 0.3s ease;
         }
 
         .project-info {
-            padding: 25px;
+            padding: 30px;
             background: white;
-            transform: translateZ(30px); /* Pops the text details further outwards */
+            transform: translateZ(40px);
+            position: relative;
+            z-index: 20; /* Elevates description details and buttons */
         }
 
         .project-info h3 {
-            margin-bottom: 10px;
-            color: #1a2a44;
-            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: #1c2541;
+            font-size: 1.4rem;
+            font-weight: 700;
         }
 
         .project-info p {
             color: #64748b;
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.98rem;
+            line-height: 1.6;
             margin-bottom: 25px;
         }
 
+        /* Custom Project CTA Button Engine Layout */
         .btn-project {
             display: inline-block;
-            background: #111b2d;
+            background: #0b132b;
             color: white;
-            padding: 10px 22px;
+            padding: 12px 26px;
             text-decoration: none;
             border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transform: translateZ(10px);
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transform: translateZ(20px); /* Extends out from card base */
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            z-index: 100; /* Absolute link priority click vector */
+            cursor: pointer;
         }
 
         .btn-project:hover {
-            background: #1e3150;
-            transform: translateZ(15px) translateY(-2px);
-            box-shadow: 0 5px 15px rgba(17, 27, 45, 0.2);
+            background: #1c2541;
+            transform: translateZ(35px) translateY(-3px);
+            box-shadow: 0 10px 20px rgba(11, 19, 43, 0.25);
         }
 
-        /* --- Split Layout: Contact & Interactive Calendar --- */
+        /* --- Contact Zone & Forms --- */
         .interactive-footer-zone {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -328,7 +358,7 @@
         }
 
         .contact-box:hover, .calendar-box:hover {
-            transform: translateY(-5px);
+            transform: translateY(-6px);
         }
 
         .form-group {
@@ -353,8 +383,8 @@
         }
 
         input:focus, textarea:focus {
-            border-color: #111b2d;
-            box-shadow: 0 0 0 3px rgba(17, 27, 45, 0.1);
+            border-color: #0b132b;
+            box-shadow: 0 0 0 3px rgba(11, 19, 43, 0.1);
         }
 
         .btn-submit {
@@ -367,7 +397,7 @@
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            transition: all 0.2s ease;
         }
 
         .btn-submit:hover {
@@ -376,7 +406,7 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
 
-        /* Interactive Calendar Widget Layout */
+        /* Availability Calendar Grid */
         .calendar-header {
             display: flex;
             justify-content: space-between;
@@ -405,26 +435,26 @@
             color: #334155;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
+            transition: all 0.2s ease;
         }
 
         .calendar-day:hover:not(.empty) {
             background: #f1f5f9;
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
 
         .calendar-day.active {
             background: #d4af37;
             color: white;
             font-weight: bold;
-            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 5px 12px rgba(212, 175, 55, 0.4);
         }
 
-        /* --- Footer Columns Layout --- */
+        /* --- Footer Network Columns Layout --- */
         footer {
-            background: #111b2d;
+            background: #0b132b;
             color: rgba(255, 255, 255, 0.8);
-            padding: 60px 10% 30px 10%;
+            padding: 70px 10% 30px 10%;
             margin-top: 60px;
         }
 
@@ -450,31 +480,31 @@
             text-decoration: none;
             font-size: 0.95rem;
             line-height: 1.8;
-            transition: color 0.2s, padding-left 0.2s;
+            transition: all 0.2s ease;
         }
 
         .footer-column a:hover {
             color: #d4af37;
-            padding-left: 4px;
+            padding-left: 6px;
         }
 
         .social-link {
             display: inline-flex;
             align-items: center;
             background: rgba(255, 255, 255, 0.05);
-            padding: 10px 16px;
+            padding: 12px 18px;
             border-radius: 8px;
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .social-link:hover {
             background: #d4af37;
-            color: #111b2d !important;
+            color: #0b132b !important;
             border-color: #d4af37;
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.35);
         }
 
         .footer-bottom {
@@ -483,22 +513,23 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Responsive Formatting */
+        /* Responsive Setup */
         @media (max-width: 968px) {
             header { padding: 20px 4%; }
-            .hero { flex-direction: column; text-align: center; padding-top: 140px; gap: 50px; }
+            .hero { flex-direction: column; text-align: center; padding-top: 150px; gap: 50px; }
             .hero-text { max-width: 100%; }
-            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text h1 { font-size: 2.6rem; }
             .interactive-footer-zone { grid-template-columns: 1fr; }
-            .profile-frame { width: 280px; height: 280px; }
+            .profile-frame { width: 300px; height: 300px; }
         }
     </style>
 </head>
 <body>
 
     <canvas id="bg-canvas"></canvas>
-    <div class="ambient-shape shape-1"></div>
-    <div class="ambient-shape shape-2"></div>
+    <div class="spicy-mesh mesh-cube"></div>
+    <div class="spicy-mesh mesh-sphere"></div>
+    <div class="spicy-mesh mesh-pyramid"></div>
 
     <header>
         <div class="logo">Kishan Nayaka | <span>Web Developer</span></div>
@@ -518,7 +549,7 @@
         
         <div class="profile-container">
             <div class="profile-frame" id="dynamicFrame">
-                <img src="profile.png" alt="Kishan Nayaka Image">
+                <img src="profile.png" alt="Kishan Nayaka Profile View">
             </div>
         </div>
     </section>
@@ -585,7 +616,7 @@
     <section class="section" id="contact">
         <div class="interactive-footer-zone">
             <div class="contact-box">
-                <h2 style="margin-bottom: 25px; color: #1a2a44;">Contact Me</h2>
+                <h2 style="margin-bottom: 25px; color: #1c2541;">Contact Me</h2>
                 <form action="https://formspree.io/f/mlgvobob" method="POST">
                     <div class="form-row">
                         <div class="form-group"><input type="text" name="First Name" placeholder="First name" required></div>
@@ -599,7 +630,7 @@
 
             <div class="calendar-box">
                 <div class="calendar-header">
-                    <span style="color:#1a2a44;">Availability Calendar</span>
+                    <span style="color:#1c2541;">Availability Calendar</span>
                     <span style="color:#64748b; font-size:0.9rem;">May 2026</span>
                 </div>
                 <div class="calendar-grid">
@@ -643,7 +674,7 @@
     </footer>
 
     <script>
-        /* --- 1. Dynamic High-Definition 3D Photo Hover System --- */
+        /* --- 1. Premium Photo Parallax Engine --- */
         const frame = document.getElementById('dynamicFrame');
         const container = document.querySelector('.profile-container');
 
@@ -652,8 +683,8 @@
             const x = e.clientX - rect.left - (rect.width / 2);
             const y = e.clientY - rect.top - (rect.height / 2);
             
-            const rotateX = -(y / 6).toFixed(2); // Increased tilt factor response
-            const rotateY = (x / 6).toFixed(2);
+            const rotateX = -(y / 5).toFixed(2);
+            const rotateY = (x / 5).toFixed(2);
 
             frame.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
@@ -662,7 +693,7 @@
             frame.style.transform = 'rotateX(0deg) rotateY(0deg)';
         });
 
-        /* --- 2. Advanced Real-Time Project Card 3D Tilt Matrix --- */
+        /* --- 2. Advanced Project Card 3D Tilt Matrix with Pop Effects --- */
         const cards = document.querySelectorAll('.3d-tiltable');
         
         cards.forEach(card => {
@@ -674,11 +705,10 @@
                 const midX = rect.width / 2;
                 const midY = rect.height / 2;
                 
-                // Rotational angle values calculations
-                const tiltX = ((midY - y) / 10).toFixed(2);
-                const tiltY = ((x - midX) / 10).toFixed(2);
+                const tiltX = ((midY - y) / 8).toFixed(2);
+                const tiltY = ((x - midX) / 8).toFixed(2);
                 
-                card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+                card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
             });
             
             card.addEventListener('mouseleave', () => {
@@ -686,12 +716,12 @@
             });
         });
 
-        /* --- 3. Fluid Interactive Particle Background Simulation Vector --- */
+        /* --- 3. Neon Interactive Glow-Node Mesh Background Logic --- */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
         let particles = [];
-        const particleCount = 50;
+        const particleCount = 55;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -700,14 +730,13 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Instantiate Particle Struct records
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 3.5 + 1,
-                speedX: Math.random() * 0.8 - 0.4,
-                speedY: Math.random() * 0.8 - 0.4
+                radius: Math.random() * 3.5 + 1.5,
+                speedX: Math.random() * 1.2 - 0.6,
+                speedY: Math.random() * 1.2 - 0.6
             });
         }
 
@@ -716,7 +745,6 @@
             mouse.x = e.clientX;
             mouse.y = e.clientY;
         });
-        
         window.addEventListener('touchmove', (e) => {
             if(e.touches.length > 0) {
                 mouse.x = e.touches[0].clientX;
@@ -726,40 +754,37 @@
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(26, 42, 68, 0.2)';
-            ctx.strokeStyle = 'rgba(26, 42, 68, 0.05)';
+            ctx.fillStyle = 'rgba(0, 242, 254, 0.25)';
+            ctx.strokeStyle = 'rgba(0, 242, 254, 0.06)';
 
             particles.forEach((p, idx) => {
                 p.x += p.speedX;
                 p.y += p.speedY;
 
-                // Screen Boundary Reset parameters
                 if (p.x < 0) p.x = canvas.width;
                 if (p.x > canvas.width) p.x = 0;
                 if (p.y < 0) p.y = canvas.height;
                 if (p.y > canvas.height) p.y = 0;
 
-                // Mouse Repulsion calculations
+                // Mouse Magnetics Logic
                 if (mouse.x && mouse.y) {
                     let dx = mouse.x - p.x;
                     let dy = mouse.y - p.y;
                     let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 150) {
-                        p.x -= dx * 0.03;
-                        p.y -= dy * 0.03;
+                    if (dist < 160) {
+                        p.x -= dx * 0.04;
+                        p.y -= dy * 0.04;
                     }
                 }
 
-                // Render nodes
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Connect active line lattice vectors
                 for (let j = idx + 1; j < particles.length; j++) {
                     let p2 = particles[j];
                     let distance = Math.sqrt((p.x - p2.x)**2 + (p.y - p2.y)**2);
-                    if (distance < 150) {
+                    if (distance < 140) {
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
