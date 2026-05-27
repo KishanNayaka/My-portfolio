@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kishan Nayaka | Web Developer Portfolio</title>
     <style>
-        /* --- Design Token & Reset --- */
+        /* --- Design Tokens & Reset --- */
         :root {
             --primary-bg: #111b2d;
             --secondary-bg: #f4f7f6;
+            --accent-blue: #00f2fe;
             --accent-glow: rgba(0, 242, 254, 0.4);
             --gold-glow: rgba(212, 175, 55, 0.4);
             --text-dark: #2c3e50;
@@ -32,7 +33,7 @@
             position: relative;
         }
 
-        /* --- Ambient 3D Background Canvas --- */
+        /* --- Ambient 3D Interactive Background Canvas --- */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -41,10 +42,28 @@
             height: 100vh;
             z-index: 1;
             pointer-events: none;
-            opacity: 0.6;
+            opacity: 0.7;
         }
 
-        /* Adjust all layout wrappers to sit on top of background canvas */
+        /* Ambient Floating Shapes in Background */
+        .ambient-shape {
+            position: absolute;
+            background: linear-gradient(45deg, rgba(0, 242, 254, 0.05), rgba(212, 175, 55, 0.05));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(40px);
+            z-index: 1;
+            animation: morphingFloating 12s infinite ease-in-out alternate;
+            pointer-events: none;
+        }
+        .shape-1 { width: 400px; height: 400px; top: -10%; right: -5%; animation-duration: 14s; }
+        .shape-2 { width: 300px; height: 300px; top: 40%; left: -10%; animation-duration: 18s; }
+
+        @keyframes morphingFloating {
+            0% { transform: translateY(0px) rotate(0deg); border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            100% { transform: translateY(30px) rotate(45deg); border-radius: 50% 50% 30% 70% / 50% 60% 40% 60%; }
+        }
+
+        /* Layout wrappers to lift content over background components */
         header, section, footer {
             position: relative;
             z-index: 2;
@@ -91,6 +110,7 @@
         nav a:hover {
             opacity: 1;
             transform: translateY(-2px);
+            text-shadow: 0 0 8px var(--accent-blue);
         }
 
         /* --- Hero Section (Deep Blue Banner) --- */
@@ -103,11 +123,18 @@
             padding: 120px 10% 60px 10%;
             color: var(--text-light);
             position: relative;
+            overflow: hidden;
         }
 
         .hero-text {
             max-width: 50%;
             z-index: 2;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-text h1 {
@@ -124,10 +151,10 @@
             letter-spacing: 0.5px;
         }
 
-        /* Enhanced 3D Interactive Profile Frame */
+        /* High-Intensity 3D Profile Setup */
         .profile-container {
             position: relative;
-            perspective: 1200px;
+            perspective: 1500px;
             z-index: 2;
         }
 
@@ -139,7 +166,7 @@
             border: 4px solid #ffffff;
             box-shadow: 0 0 35px var(--accent-glow), var(--card-shadow);
             transform-style: preserve-3d;
-            transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.1s cubic-bezier(0.25, 1, 0.5, 1);
             background: #233554;
             display: flex;
             justify-content: center;
@@ -150,21 +177,33 @@
             width: 100%;
             height: auto;
             object-fit: cover;
-            transform: translateZ(40px) scale(1.05);
-            transition: transform 0.15s ease-out;
+            transform: translateZ(50px) scale(1.08);
+            pointer-events: none;
         }
 
-        /* --- Content Blocks Styling --- */
+        /* --- Content Sections --- */
         .section {
-            padding: 80px 10%;
+            padding: 100px 10%;
         }
 
         .section-title {
             font-size: 2rem;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             position: relative;
             color: #1a2a44;
             font-weight: 700;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: #d4af37;
+            border-radius: 2px;
         }
 
         /* --- Skills Stack --- */
@@ -180,32 +219,32 @@
             border-radius: var(--radius);
             text-align: center;
             box-shadow: var(--card-shadow);
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             cursor: pointer;
         }
 
         .skill-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-10px) scale(1.05);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
-        .skill-card svg, .skill-card img {
+        .skill-card svg {
             width: 50px;
             height: 50px;
             margin-bottom: 15px;
+            transition: transform 0.4s ease;
         }
 
-        .skill-card p {
-            font-weight: 600;
-            color: #556375;
-            font-size: 0.95rem;
+        .skill-card:hover svg {
+            transform: rotate(10deg) scale(1.1);
         }
 
-        /* --- Projects Grid with Premium Glowing Hover Elements --- */
+        /* --- Projects Grid with Real 3D Tilt Mechanics --- */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 35px;
+            perspective: 1000px; /* Activates 3D depth field space */
         }
 
         .project-card {
@@ -213,21 +252,14 @@
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--card-shadow);
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-            border: 1px solid transparent;
+            transform-style: preserve-3d; /* Allows nested elements to look 3D popped */
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.03);
             position: relative;
         }
 
         .project-card:hover {
-            transform: translateY(-10px) scale(1.01);
-            border-color: rgba(0, 242, 254, 0.5);
-            box-shadow: 0 20px 40px var(--accent-glow), var(--card-shadow);
-        }
-
-        /* Alternative subtle glow for odd cards */
-        .project-card:nth-child(even):hover {
-            border-color: rgba(212, 175, 55, 0.5);
-            box-shadow: 0 20px 40px var(--gold-glow), var(--card-shadow);
+            box-shadow: 0 30px 50px rgba(0, 242, 254, 0.15), var(--card-shadow);
         }
 
         .project-img-placeholder {
@@ -235,49 +267,48 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 3.5rem;
             background: linear-gradient(135deg, #e0e6ed 0%, #cbd5e1 100%);
-            transition: transform 0.4s ease;
-        }
-
-        .project-card:hover .project-img-placeholder {
-            transform: scale(1.03);
+            transform: translateZ(20px); /* Pops the emoji outwards in 3D */
+            transition: transform 0.3s ease;
         }
 
         .project-info {
             padding: 25px;
             background: white;
-            position: relative;
-            z-index: 2;
+            transform: translateZ(30px); /* Pops the text details further outwards */
         }
 
         .project-info h3 {
             margin-bottom: 10px;
             color: #1a2a44;
+            font-size: 1.3rem;
         }
 
         .project-info p {
             color: #64748b;
             font-size: 0.95rem;
             line-height: 1.5;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .btn-project {
             display: inline-block;
             background: #111b2d;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 22px;
             text-decoration: none;
             border-radius: 8px;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: background 0.2s, transform 0.2s;
+            transform: translateZ(10px);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
         }
 
         .btn-project:hover {
             background: #1e3150;
-            transform: translateY(-1px);
+            transform: translateZ(15px) translateY(-2px);
+            box-shadow: 0 5px 15px rgba(17, 27, 45, 0.2);
         }
 
         /* --- Split Layout: Contact & Interactive Calendar --- */
@@ -288,11 +319,16 @@
             align-items: start;
         }
 
-        .contact-box {
+        .contact-box, .calendar-box {
             background: white;
             padding: 40px;
             border-radius: var(--radius);
             box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-box:hover, .calendar-box:hover {
+            transform: translateY(-5px);
         }
 
         .form-group {
@@ -340,14 +376,7 @@
             box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
 
-        /* Interactive UI Calendar Widget */
-        .calendar-box {
-            background: white;
-            padding: 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--card-shadow);
-        }
-
+        /* Interactive Calendar Widget Layout */
         .calendar-header {
             display: flex;
             justify-content: space-between;
@@ -376,19 +405,22 @@
             color: #334155;
             border-radius: 8px;
             cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
         }
 
         .calendar-day:hover:not(.empty) {
             background: #f1f5f9;
+            transform: scale(1.1);
         }
 
         .calendar-day.active {
             background: #d4af37;
             color: white;
             font-weight: bold;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
         }
 
-        /* --- Footer with Integrated Contact Cards & Socials --- */
+        /* --- Footer Columns Layout --- */
         footer {
             background: #111b2d;
             color: rgba(255, 255, 255, 0.8);
@@ -418,11 +450,12 @@
             text-decoration: none;
             font-size: 0.95rem;
             line-height: 1.8;
-            transition: color 0.2s;
+            transition: color 0.2s, padding-left 0.2s;
         }
 
         .footer-column a:hover {
             color: #d4af37;
+            padding-left: 4px;
         }
 
         .social-link {
@@ -433,12 +466,15 @@
             border-radius: 8px;
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         .social-link:hover {
             background: #d4af37;
             color: #111b2d !important;
             border-color: #d4af37;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
 
         .footer-bottom {
@@ -447,19 +483,22 @@
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* Responsive Setup */
+        /* Responsive Formatting */
         @media (max-width: 968px) {
             header { padding: 20px 4%; }
-            .hero { flex-direction: column; text-align: center; padding-top: 140px; gap: 40px; }
+            .hero { flex-direction: column; text-align: center; padding-top: 140px; gap: 50px; }
             .hero-text { max-width: 100%; }
             .hero-text h1 { font-size: 2.5rem; }
             .interactive-footer-zone { grid-template-columns: 1fr; }
+            .profile-frame { width: 280px; height: 280px; }
         }
     </style>
 </head>
 <body>
 
     <canvas id="bg-canvas"></canvas>
+    <div class="ambient-shape shape-1"></div>
+    <div class="ambient-shape shape-2"></div>
 
     <header>
         <div class="logo">Kishan Nayaka | <span>Web Developer</span></div>
@@ -513,15 +552,17 @@
     <section class="section" id="projects">
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-img-placeholder">🛍️</div>
+            
+            <div class="project-card 3d-tiltable">
+                <div class="project-img-placeholder">📝</div>
                 <div class="project-info">
-                    <h3>E-commerce App</h3>
-                    <p>A fast web application built using standard headless architecture APIs with ultra premium UI rendering.</p>
-                    <a href="#" class="btn-project">View Project</a>
+                    <h3>AI Resume Builder</h3>
+                    <p>An intelligent web application that helps users generate optimized, professional resumes using advanced tailored AI processing layouts.</p>
+                    <a href="https://kishannayaka.github.io/AI-Resume-Builder/" target="_blank" class="btn-project">View Live Project</a>
                 </div>
             </div>
-            <div class="project-card">
+            
+            <div class="project-card 3d-tiltable">
                 <div class="project-img-placeholder">☀️</div>
                 <div class="project-info">
                     <h3>Weather Dashboard</h3>
@@ -529,7 +570,8 @@
                     <a href="#" class="btn-project">View Project</a>
                 </div>
             </div>
-            <div class="project-card">
+            
+            <div class="project-card 3d-tiltable">
                 <div class="project-img-placeholder">💬</div>
                 <div class="project-info">
                     <h3>Chat Application</h3>
@@ -592,7 +634,7 @@
             </div>
             <div class="footer-column">
                 <h4>Location Focus</h4>
-                <p>Chitradurga-577501, Karnataka<br>India</p>
+                <p>Mysuru, Karnataka<br>India</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -601,7 +643,7 @@
     </footer>
 
     <script>
-        /* --- 1. Dynamic 3D Photo Hover System --- */
+        /* --- 1. Dynamic High-Definition 3D Photo Hover System --- */
         const frame = document.getElementById('dynamicFrame');
         const container = document.querySelector('.profile-container');
 
@@ -610,9 +652,8 @@
             const x = e.clientX - rect.left - (rect.width / 2);
             const y = e.clientY - rect.top - (rect.height / 2);
             
-            // Intensified 3D perspective depth tracking calculations
-            const rotateX = -(y / 8).toFixed(2);
-            const rotateY = (x / 8).toFixed(2);
+            const rotateX = -(y / 6).toFixed(2); // Increased tilt factor response
+            const rotateY = (x / 6).toFixed(2);
 
             frame.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
         });
@@ -621,12 +662,36 @@
             frame.style.transform = 'rotateX(0deg) rotateY(0deg)';
         });
 
-        /* --- 2. Ambient Math-Driven Interactive Background Simulation --- */
+        /* --- 2. Advanced Real-Time Project Card 3D Tilt Matrix --- */
+        const cards = document.querySelectorAll('.3d-tiltable');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const midX = rect.width / 2;
+                const midY = rect.height / 2;
+                
+                // Rotational angle values calculations
+                const tiltX = ((midY - y) / 10).toFixed(2);
+                const tiltY = ((x - midX) / 10).toFixed(2);
+                
+                card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        });
+
+        /* --- 3. Fluid Interactive Particle Background Simulation Vector --- */
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
         let particles = [];
-        const particleCount = 45;
+        const particleCount = 50;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -635,63 +700,69 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Instantiate particle physics records
+        // Instantiate Particle Struct records
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                radius: Math.random() * 3 + 1,
-                speedX: Math.random() * 0.6 - 0.3,
-                speedY: Math.random() * 0.6 - 0.3
+                radius: Math.random() * 3.5 + 1,
+                speedX: Math.random() * 0.8 - 0.4,
+                speedY: Math.random() * 0.8 - 0.4
             });
         }
 
-        // Mouse positional tracker
         let mouse = { x: null, y: null };
         window.addEventListener('mousemove', (e) => {
             mouse.x = e.clientX;
             mouse.y = e.clientY;
         });
+        
+        window.addEventListener('touchmove', (e) => {
+            if(e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        });
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(26, 42, 68, 0.15)';
-            ctx.strokeStyle = 'rgba(26, 42, 68, 0.04)';
+            ctx.fillStyle = 'rgba(26, 42, 68, 0.2)';
+            ctx.strokeStyle = 'rgba(26, 42, 68, 0.05)';
 
             particles.forEach((p, idx) => {
                 p.x += p.speedX;
                 p.y += p.speedY;
 
-                // Screen Boundary Wrap Controls
+                // Screen Boundary Reset parameters
                 if (p.x < 0) p.x = canvas.width;
                 if (p.x > canvas.width) p.x = 0;
                 if (p.y < 0) p.y = canvas.height;
                 if (p.y > canvas.height) p.y = 0;
 
-                // Interactive mouse repulsion distortion math logic
+                // Mouse Repulsion calculations
                 if (mouse.x && mouse.y) {
                     let dx = mouse.x - p.x;
                     let dy = mouse.y - p.y;
                     let dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
-                        p.x -= dx * 0.02;
-                        p.y -= dy * 0.02;
+                    if (dist < 150) {
+                        p.x -= dx * 0.03;
+                        p.y -= dy * 0.03;
                     }
                 }
 
-                // Render micro nodes
+                // Render nodes
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Build structural lattice wires dynamically based on distance vectors
+                // Connect active line lattice vectors
                 for (let j = idx + 1; j < particles.length; j++) {
                     let p2 = particles[j];
                     let distance = Math.sqrt((p.x - p2.x)**2 + (p.y - p2.y)**2);
                     if (distance < 150) {
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.p2y || p2.y);
+                        ctx.lineTo(p2.x, p2.y);
                         ctx.stroke();
                     }
                 }
