@@ -2,7 +2,7 @@ Premium 3D Interactive Web Developer Portfolio
 
 Welcome to my personal portfolio repository! This is a high-performance, responsive single-page web application engineered to showcase my full-stack and front-end development capabilities. It features real-time 3D parallax effects, fluid interactive background physics, and seamless third-party backend integrations.
 
-Live Demo: https://kishannayaka.github.io/My-portfolio-1/
+Live Demo: https://kishannayaka.github.io/My-portfolio/
 
 ---
 
